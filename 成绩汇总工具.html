@@ -81,6 +81,7 @@ const BANK = {"passScore":80,"sections":[
 {"id":21,"answer":false},{"id":22,"answer":true},{"id":23,"answer":false},{"id":24,"answer":true},{"id":25,"answer":false},{"id":26,"answer":true},{"id":27,"answer":false},{"id":28,"answer":true},{"id":29,"answer":true},{"id":30,"answer":true}]}]};
 const flat=[]; BANK.sections.forEach(s=>s.questions.forEach(q=>flat.push({...q,type:s.id,score:s.scorePerQuestion})));
 const L=['A','B','C','D'];
+const $ = id => document.getElementById(id);
 let codeTable={}; // empId -> payload（最新）
 
 function checksum(str){ let h=0; for(let i=0;i<str.length;i++){ h=(h*31+str.charCodeAt(i))>>>0; } return h%9973; }
