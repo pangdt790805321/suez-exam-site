@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成绩汇总工具 · “七个必有”考试</title>
+<style>
+  :root{ --blue:#0b5cad; --green:#0e9f6e; --red:#d93838; --line:#dde5ee; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif; background:#f0f4f8; color:#1f2d3d; padding:20px 14px 60px; }
+  .wrap{ max-width:1100px; margin:0 auto; }
+  h1{ font-size:18px; color:#084a8a; margin-bottom:6px; }
+  .sub{ font-size:13px; color:#7b8fa6; margin-bottom:16px; }
+  .card{ background:#fff; border-radius:14px; box-shadow:0 2px 8px rgba(16,58,102,.07); padding:18px; margin-bottom:16px; }
+  textarea{ width:100%; height:160px; border:1.5px solid var(--line); border-radius:10px; padding:12px; font-size:13px; line-height:1.6; outline:none; font-family:Consolas,monospace; }
+  textarea:focus{ border-color:var(--blue); }
+  .btn{ border:none; border-radius:10px; padding:11px 22px; font-size:14.5px; font-weight:700; cursor:pointer; margin-right:10px; }
+  .btn-p{ background:linear-gradient(135deg,#0b5cad,#1e7fd6); color:#fff; }
+  .btn-g{ background:#e8f1fb; color:#0b5cad; }
+  .btn-d{ background:#fdecec; color:var(--red); }
+  .stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin-top:4px; }
+  .stat{ background:linear-gradient(160deg,#f4f8fc,#eef4fb); border-radius:12px; padding:14px 8px; text-align:center; }
+  .stat b{ font-size:24px; color:#084a8a; display:block; }
+  .stat span{ font-size:12px; color:#5b7089; }
+  .stat.hl b{ color:var(--green); }
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th{ background:#f0f5fb; color:#40566f; padding:9px 8px; border-bottom:2px solid var(--line); white-space:nowrap; position:sticky; top:0; }
+  td{ padding:8px; border-bottom:1px solid #edf2f8; white-space:nowrap; }
+  tr:hover td{ background:#f8fbff; }
+  .tb-wrap{ overflow-x:auto; max-height:60vh; overflow-y:auto; border:1px solid var(--line); border-radius:10px; }
+  .pill{ display:inline-block; border-radius:14px; padding:2px 10px; font-size:12px; font-weight:700; }
+  .pill.ok{ background:#e5f7ef; color:var(--green); }
+  .pill.no{ background:#fdecec; color:var(--red); }
+  .cq{ display:inline-block; min-width:28px; text-align:center; border-radius:6px; padding:2px 3px; margin:1px; font-size:11.5px; font-weight:700; }
+  .cq-ok{ background:#e5f7ef; color:#0b7a54; }
+  .cq-no{ background:#fdecec; color:var(--red); }
+  .cq-un{ background:#f1f3f6; color:#98a7b8; }
+  .note{ font-size:12.5px; color:#8aa0b8; line-height:1.8; background:#f4f8fc; border-radius:10px; padding:10px 14px; margin-top:12px; }
+  #msg{ font-size:13px; color:#0e9f6e; font-weight:600; margin-top:8px; min-height:18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📊 成绩汇总工具 · 苏伊士埃及风电项目“七个必有”考试</h1>
+  <div class="sub">把群里的成绩回执码复制粘贴到下面（可整段聊天记录直接粘贴，工具会自动识别），点“生成汇总”</div>
+
+  <div class="card">
+    <textarea id="codes" placeholder="把员工发到群里的回执码粘贴到这里，支持一次粘贴多人的、混在聊天记录里也行……&#10;SUEZ1.xxxxx.123&#10;SUEZ1.yyyyy.456"></textarea>
+    <div style="margin-top:12px">
+      <button class="btn btn-p" onclick="run()">生成汇总</button>
+      <button class="btn btn-g" onclick="exportCSV()">导出Excel(CSV)</button>
+      <button class="btn btn-d" onclick="if(confirm('确定清空当前汇总？')){codeTable={};render();}">清空</button>
+    </div>
+    <div id="msg"></div>
+    <div class="note">
+      · 本工具无需联网、无需服务器，双击即可用；汇总结果仅保存在本页面（关闭前请导出）。<br>
+      · 同一工号多次提交时，自动采用<b>最新</b>一条；如需按最高分统计请告知管理员调整口径。&#128521;
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="stats" id="statsBox"></div>
+  </div>
+
+  <div class="card">
+    <div class="tb-wrap">
+      <table>
+        <thead><tr><th>#</th><th>姓名</th><th>工号</th><th>部门/单位</th><th>总分</th><th>结果</th><th>单选(80)</th><th>判断(20)</th><th>用时</th><th>提交时间</th><th>各题得分</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+// 与考试页一致的题库（用于复核回执码中的答案串）
+const BANK = {"passScore":80,"sections":[
+{"id":"single","title":"单选","scorePerQuestion":4,"questions":[
+{"id":1,"answer":1},{"id":2,"answer":1},{"id":3,"answer":0},{"id":4,"answer":1},{"id":5,"answer":2},{"id":6,"answer":0},{"id":7,"answer":1},{"id":8,"answer":1},{"id":9,"answer":1},{"id":10,"answer":1},{"id":11,"answer":1},{"id":12,"answer":1},{"id":13,"answer":0},{"id":14,"answer":1},{"id":15,"answer":0},{"id":16,"answer":1},{"id":17,"answer":2},{"id":18,"answer":1},{"id":19,"answer":2},{"id":20,"answer":1}]},
+{"id":"judge","title":"判断","scorePerQuestion":2,"questions":[
+{"id":21,"answer":false},{"id":22,"answer":true},{"id":23,"answer":false},{"id":24,"answer":true},{"id":25,"answer":false},{"id":26,"answer":true},{"id":27,"answer":false},{"id":28,"answer":true},{"id":29,"answer":true},{"id":30,"answer":true}]}]};
+const flat=[]; BANK.sections.forEach(s=>s.questions.forEach(q=>flat.push({...q,type:s.id,score:s.scorePerQuestion})));
+const L=['A','B','C','D'];
+let codeTable={}; // empId -> payload（最新）
+
+function checksum(str){ let h=0; for(let i=0;i<str.length;i++){ h=(h*31+str.charCodeAt(i))>>>0; } return h%9973; }
+
+function decode(code){
+  const m=/^SUEZ1\.([A-Za-z0-9+/=]+)\.(\d+)$/.exec(code.trim());
+  if(!m) return null;
+  if(checksum(m[1])!==+m[2]) return null;
+  try{ return JSON.parse(decodeURIComponent(escape(atob(m[1])))); }catch(e){ return null; }
+}
+function grade(p){
+  let total=0,single=0,judge=0; const per={};
+  flat.forEach((q,i)=>{
+    const c=p.a[i];
+    const g = c==='X'?null : (q.type==='judge' ? (c==='T') : +c);
+    const correct = g!==null && String(g)===String(q.answer);
+    per[q.id]={g,correct,score:correct?q.score:0};
+    if(correct){ total+=q.score; q.type==='single'?single+=q.score:judge+=q.score; }
+  });
+  return {total,single,judge,per};
+}
+function run(){
+  const text=$('codes').value;
+  const found=text.match(/SUEZ1\.[A-Za-z0-9+/=]+\.\d+/g)||[];
+  let ok=0,bad=0;
+  found.forEach(c=>{ const p=decode(c); if(p&&p.e){ codeTable[p.e]=p; ok++; } else bad++; });
+  $('msg').textContent=found.length?`已识别 ${ok} 条有效回执${bad?`（${bad} 条无效已忽略）`:''}，当前汇总 ${Object.keys(codeTable).length} 人。`:'未找到回执码，请检查粘贴内容。';
+  render();
+}
+function render(){
+  const list=Object.values(codeTable).map(p=>({p,g:grade(p)})).sort((a,b)=>b.p.t-a.p.t);
+  const n=list.length;
+  const pass=list.filter(x=>x.g.total>=BANK.passScore).length;
+  const totals=list.map(x=>x.g.total);
+  $('statsBox').innerHTML=`
+    <div class="stat"><b>${n}</b><span>汇总人数</span></div>
+    <div class="stat"><b>${n?Math.round(totals.reduce((a,b)=>a+b,0)/n*10)/10:0}</b><span>平均分</span></div>
+    <div class="stat"><b>${n?Math.max(...totals):0}</b><span>最高分</span></div>
+    <div class="stat"><b>${n?Math.min(...totals):0}</b><span>最低分</span></div>
+    <div class="stat hl"><b>${n?Math.round(pass/n*1000)/10:0}%</b><span>及格率(${pass}人)</span></div>
+    <div class="stat hl"><b>${list.filter(x=>x.g.total===100).length}</b><span>满分人数</span></div>`;
+  $('tbody').innerHTML=list.map(({p,g},i)=>{
+    const cells=flat.map(q=>{const x=g.per[q.id];const cls=x.g===null?'cq-un':(x.correct?'cq-ok':'cq-no');return `<span class="cq ${cls}" title="第${q.id}题 得${x.score}分">${q.id}·${x.score}</span>`;}).join('');
+    const d=new Date(p.t);
+    return `<tr><td>${i+1}</td><td><b>${esc(p.n)}</b></td><td>${esc(p.e)}</td><td>${esc(p.d||'-')}</td>
+    <td><b style="font-size:15px;color:${g.total>=BANK.passScore?'#0e9f6e':'#d93838'}">${g.total}</b></td>
+    <td><span class="pill ${g.total>=BANK.passScore?'ok':'no'}">${g.total>=BANK.passScore?'及格':'不及格'}</span></td>
+    <td>${g.single}</td><td>${g.judge}</td>
+    <td>${p.u?Math.floor(p.u/60)+'′'+String(p.u%60).padStart(2,'0')+'″':'-'}</td>
+    <td>${d.getMonth()+1}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}</td>
+    <td style="white-space:normal;max-width:400px">${cells}</td></tr>`;
+  }).join('')||'<tr><td colspan="11" style="text-align:center;padding:30px;color:#98a7b8">暂无数据，请粘贴回执码后点“生成汇总”</td></tr>';
+}
+function exportCSV(){
+  const list=Object.values(codeTable).map(p=>({p,g:grade(p)})).sort((a,b)=>a.p.t-b.p.t);
+  if(!list.length){ alert('暂无数据'); return; }
+  const esc2=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const head=['序号','提交时间','姓名','工号','部门/单位','总分','是否及格','单选得分','判断得分','用时',...flat.map(q=>(q.type==='judge'?'判断':'单选')+q.id)];
+  const lines=[head.map(esc2).join(',')];
+  lines.push(['-','-','-','-','-','正确答案→','-','-','-','-',...flat.map(q=>q.type==='judge'?(q.answer?'√':'×'):L[q.answer])].map(esc2).join(','));
+  list.forEach(({p,g},i)=>{
+    lines.push([i+1,new Date(p.t).toLocaleString('zh-CN',{hour12:false}),p.n,p.e,p.d||'',g.total,g.total>=BANK.passScore?'及格':'不及格',g.single,g.judge,p.u?Math.floor(p.u/60)+'分'+(p.u%60)+'秒':'-',...flat.map(q=>{const x=g.per[q.id];const a=x.g===null?'未答':(q.type==='judge'?(x.g?'√':'×'):L[x.g]);return a+'/'+x.score+'分';})].map(esc2).join(','));
+  });
+  const blob=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='七个必有考试成绩.csv'; a.click();
+}
+function esc(s){ return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+render();
+</script>
+</body>
+</html>

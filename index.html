@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>苏伊士埃及风电项目“七个必有”安全知识考试</title>
+<style>
+  :root{ --blue:#0b5cad; --blue-d:#084a8a; --green:#0e9f6e; --bg:#f0f4f8; --line:#dde5ee; --red:#d93838; }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  body{ font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif; background:var(--bg); color:#1f2d3d; min-height:100vh; padding-bottom:90px; }
+  .header{ background:linear-gradient(135deg,var(--blue-d),var(--blue) 60%,#1e7fd6); color:#fff; padding:26px 18px 30px; text-align:center; position:relative; overflow:hidden; }
+  .header .tag{ display:inline-block; font-size:12px; letter-spacing:2px; border:1px solid rgba(255,255,255,.5); border-radius:20px; padding:3px 14px; margin-bottom:12px; }
+  .header h1{ font-size:21px; line-height:1.4; position:relative; z-index:1; }
+  .header .sub{ font-size:13px; opacity:.85; margin-top:8px; }
+  .header .meta{ font-size:12px; opacity:.8; margin-top:10px; }
+  .wrap{ max-width:760px; margin:0 auto; padding:16px; }
+  .card{ background:#fff; border-radius:14px; box-shadow:0 2px 10px rgba(16,58,102,.08); padding:22px 18px; margin-top:-40px; position:relative; z-index:2; }
+  .sec-title{ font-size:15px; font-weight:700; color:var(--blue-d); padding:14px 4px 8px; border-bottom:2px solid var(--line); margin-top:18px; }
+  .q{ margin:18px 2px 6px; }
+  .q .qt{ font-size:15.5px; line-height:1.65; font-weight:600; }
+  .q .qt .num{ color:var(--blue); margin-right:4px; }
+  .opts{ margin-top:12px; display:flex; flex-direction:column; gap:9px; }
+  .opt{ display:flex; align-items:flex-start; gap:10px; border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; cursor:pointer; transition:all .15s; font-size:15px; line-height:1.5; background:#fff; }
+  .opt .abc{ flex:none; width:24px; height:24px; border-radius:50%; border:1.5px solid #b8c6d6; color:#5b7089; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .opt.sel{ border-color:var(--blue); background:#eef6ff; }
+  .opt.sel .abc{ background:var(--blue); border-color:var(--blue); color:#fff; }
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-size:13.5px; color:#5b7089; margin-bottom:7px; font-weight:600; }
+  .field input{ width:100%; border:1.5px solid var(--line); border-radius:10px; padding:12px 14px; font-size:16px; outline:none; }
+  .field input:focus{ border-color:var(--blue); }
+  .req{ color:var(--red); }
+  .btn{ display:block; width:100%; border:none; border-radius:12px; padding:14px; font-size:16.5px; font-weight:700; cursor:pointer; }
+  .btn-primary{ background:linear-gradient(135deg,var(--blue),#1e7fd6); color:#fff; box-shadow:0 4px 14px rgba(11,92,173,.35); }
+  .btn-ghost{ background:#fff; color:var(--blue); border:1.5px solid var(--blue); margin-top:10px; }
+  .navbar{ position:fixed; left:0; right:0; bottom:0; background:#fff; box-shadow:0 -3px 14px rgba(16,58,102,.12); padding:10px 14px calc(10px + env(safe-area-inset-bottom)); z-index:50; }
+  .nav-inner{ max-width:760px; margin:0 auto; }
+  .progress-row{ display:flex; justify-content:space-between; align-items:center; font-size:12.5px; color:#5b7089; margin-bottom:8px; }
+  .pbar{ height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin-bottom:10px; }
+  .pbar i{ display:block; height:100%; background:linear-gradient(90deg,var(--green),#31c48d); border-radius:3px; transition:width .25s; }
+  .hidden{ display:none !important; }
+  .score-hero{ text-align:center; padding:20px 16px; }
+  .score-ring{ width:150px; height:150px; border-radius:50%; margin:0 auto 16px; display:flex; flex-direction:column; align-items:center; justify-content:center; border:8px solid #bfe8d5; }
+  .fail .score-ring{ border-color:#f5c6c6; }
+  .score-ring .s{ font-size:44px; font-weight:800; color:var(--green); }
+  .fail .score-ring .s{ color:var(--red); }
+  .score-ring .of{ font-size:12px; color:#8aa0b8; margin-top:4px; }
+  .verdict{ font-size:18px; font-weight:800; margin-bottom:6px; color:var(--green); }
+  .fail .verdict{ color:var(--red); }
+  .info-line{ font-size:13px; color:#5b7089; }
+  .stat-row{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:18px; }
+  .stat-box{ background:#f4f8fc; border-radius:12px; padding:14px 8px; text-align:center; }
+  .stat-box b{ display:block; font-size:22px; color:var(--blue-d); }
+  .stat-box span{ font-size:12px; color:#5b7089; }
+  .receipt{ margin-top:18px; border:2px dashed var(--blue); background:#f2f8ff; border-radius:12px; padding:14px; text-align:left; }
+  .receipt h4{ font-size:14px; color:var(--blue-d); margin-bottom:8px; }
+  .receipt code{ display:block; word-break:break-all; font-size:11.5px; line-height:1.5; color:#334; background:#fff; border:1px solid var(--line); border-radius:8px; padding:8px; max-height:90px; overflow-y:auto; user-select:all; }
+  .wrong-box{ margin-top:18px; background:#fff8f0; border:1px solid #f3ddc2; border-radius:12px; padding:14px 16px; font-size:14px; line-height:1.7; }
+  .wrong-box b{ color:#b25e09; }
+  .ok-box{ margin-top:18px; background:#effaf4; border:1px solid #bfe8d5; border-radius:12px; padding:14px 16px; font-size:14px; color:#0e9f6e; font-weight:600; text-align:center; }
+  .tips{ font-size:12.5px; color:#8aa0b8; line-height:1.8; margin-top:14px; background:#f4f8fc; border-radius:10px; padding:10px 14px; }
+  .mask{ position:fixed; inset:0; background:rgba(9,30,53,.55); display:flex; align-items:center; justify-content:center; z-index:99; padding:20px; }
+  .dialog{ background:#fff; border-radius:16px; padding:26px 22px; max-width:360px; width:100%; text-align:center; }
+  .dialog h3{ font-size:17px; margin-bottom:10px; }
+  .dialog p{ font-size:14px; color:#5b7089; line-height:1.7; margin-bottom:18px; }
+  .dialog .row{ display:flex; gap:10px; }
+  .dialog .btn{ padding:11px; font-size:15px; }
+  .btn-warn{ background:#fff; color:#5b7089; border:1.5px solid var(--line); }
+  .toast{ position:fixed; top:18px; left:50%; transform:translateX(-50%); background:rgba(20,40,70,.92); color:#fff; font-size:14px; border-radius:24px; padding:9px 22px; z-index:100; animation:fade 2.4s forwards; }
+  @keyframes fade{ 0%{opacity:0;} 12%{opacity:1;} 85%{opacity:1;} 100%{opacity:0;} }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">HSSE · 安全管理提升</div>
+  <h1>苏伊士埃及风电项目“七个必有”<br>安全知识考试</h1>
+  <div class="sub">施工任务有计划 · 现场管理有网格 · 作业条件有验证 · 高危作业有审批</div>
+  <div class="sub">交底落实到岗 · 关键工序有监督 · 重点部位有监控</div>
+  <div class="meta" id="examMeta">共 30 题 ｜ 满分 100 分 ｜ 及格线 80 分</div>
+</div>
+
+<div class="wrap">
+  <div class="card" id="stepInfo">
+    <div class="field"><label>姓名 <span class="req">*</span></label><input id="inName" maxlength="20" placeholder="请输入真实姓名"></div>
+    <div class="field"><label>工号 <span class="req">*</span></label><input id="inEmp" maxlength="20" placeholder="请输入工号（用于成绩统计）"></div>
+    <div class="field"><label>部门 / 所属单位（选填）</label><input id="inDept" maxlength="40" placeholder="如：工程管理部 / ××分包队伍"></div>
+    <button class="btn btn-primary" id="btnStart">开始答题</button>
+    <div class="tips">
+      · 交卷后自动判分，并生成<b>成绩回执码</b>，请复制发到群里完成提交。<br>
+      · 答题过程请勿刷新页面；本页可离线使用。
+    </div>
+  </div>
+
+  <div id="stepExam" class="hidden">
+    <div id="sections"></div>
+    <div style="height:14px"></div>
+  </div>
+
+  <div class="card hidden" id="stepResult"></div>
+</div>
+
+<div class="navbar hidden" id="navbar">
+  <div class="nav-inner">
+    <div class="progress-row"><span id="progText">已答 0 / 30</span><span id="timer">00:00</span></div>
+    <div class="pbar"><i id="pbarFill" style="width:0%"></i></div>
+    <button class="btn btn-primary" id="btnSubmit">交 卷</button>
+  </div>
+</div>
+
+<div class="mask hidden" id="dlgMask">
+  <div class="dialog">
+    <h3 id="dlgTitle">确认交卷？</h3>
+    <p id="dlgMsg"></p>
+    <div class="row">
+      <button class="btn btn-warn" id="dlgNo">继续答题</button>
+      <button class="btn btn-primary" id="dlgYes">确认交卷</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================= 题库（含标准答案） =================
+const BANK = {"passScore":80,"sections":[
+{"id":"single","title":"一、单项选择题（共20题，每题4分，共80分）","scorePerQuestion":4,"questions":[
+{"id":1,"text":"项目生产副经理需将所有自有或分包施工任务全部纳入（　），并同步明确对应管控措施。","options":["日计划","月（周）计划","季度计划","年度计划"],"answer":1},
+{"id":2,"text":"确需开展的零星或临时性作业，经生产管理部门审查后，需报（　）备案方可实施。","options":["技术管理部门","安全监督部门","设备物资部门","综合管理部门"],"answer":1},
+{"id":3,"text":"针对无计划施工、计划外作业行为，应核查追究（　）相关人员责任。","options":["安全生产实施体系","安全监督体系","技术管理体系","物资管理体系"],"answer":0},
+{"id":4,"text":"施工现场安全生产网格化管理的统筹负责人是（　）。","options":["生产副经理","项目经理","安全总监","技术负责人"],"answer":1},
+{"id":5,"text":"安全生产网格化管理需实现定格、定人、定责，确保（　）无遗漏。","options":["办公区域","施工区域","所有作业区域","生产辅助区域"],"answer":2},
+{"id":6,"text":"作业期间，网格员需对网格区域开展（　）巡查工作。","options":["每日全覆盖","隔日抽查","每周全覆盖","每月抽查"],"answer":0},
+{"id":7,"text":"网格覆盖不全、划分不合理或网格员不明确的，追责主体为（　）。","options":["网格员","安全生产实施体系","项目负责人","安全监督员"],"answer":1},
+{"id":8,"text":"项目部多部门需常态化开展的安全复核验证工作核心内容是（　）。","options":["三交三查","人机料法环","作业票证","技术交底"],"answer":1},
+{"id":9,"text":"作业验证工作遵循的核心原则是（　）。","options":["谁审批、谁负责","谁验证、谁负责","谁监督、谁负责","谁组织、谁负责"],"answer":1},
+{"id":10,"text":"网格员确认作业条件时，发现人机料法环未复核验证或超有效期的，应当（　）。","options":["边作业边整改","一律不得作业","报备后作业","酌情开展作业"],"answer":1},
+{"id":11,"text":"起重吊装、动火、有限空间等高危作业，必须办理（　）后方可施工。","options":["施工报备单","作业票/作业许可","技术方案","安全承诺书"],"answer":1},
+{"id":12,"text":"高风险作业票证审批的牵头部门是（　）。","options":["技术部门","安全监督部门","生产管理部门","设备物资部门"],"answer":1},
+{"id":13,"text":"一般性作业的审批管理方式是纳入（　）报备审查。","options":["周会议、周计划或工作群","月度会议、月度计划","专项方案","安全台账"],"answer":0},
+{"id":14,"text":"发现无审批、无票证、无报备作业的，重点处罚（　）。","options":["现场作业人员","作业组织者","网格员","安全监督员"],"answer":1},
+{"id":15,"text":"项目安全技术交底需遵循的三级落地要求是（　）。","options":["一级总体把控、二级分项细化、三级岗位落地","一级项目统筹、二级班组细化、三级个人落地","一级总体把控、二级班组细化、三级岗位落地","一级项目统筹、二级分项细化、三级个人落地"],"answer":0},
+{"id":16,"text":"危大工程、危险作业必须开展（　），并留存视频影像资料。","options":["常规交底","反向交底","口头交底","简化交底"],"answer":1},
+{"id":17,"text":"班前会需严格落实的核心工作是（　）。","options":["人员考勤","设备检查","三交三查","进度核对"],"answer":2},
+{"id":18,"text":"危大工程、高风险作业每个工点必须安排（　）全过程旁站监督。","options":["班组班组长","项目管理人员","分包单位工人","物资管理员"],"answer":1},
+{"id":19,"text":"施工现场“三违”行为三次违章的处置方式是（　）。","options":["警示教育","黄牌警告","红牌清退","停工整改"],"answer":2},
+{"id":20,"text":"高风险作业需采用（　）记录巡查监督全过程。","options":["纸质台账","执法记录仪、移动摄像设备","手机文字记录","口头记录"],"answer":1}]},
+{"id":"judge","title":"二、判断题（共10题，每题2分，共20分）","scorePerQuestion":2,"questions":[
+{"id":21,"text":"临时性零星作业可先行施工，后续再补办报批和备案手续。","answer":false},
+{"id":22,"text":"安全生产网格化管理要求实现作业区域全覆盖，无无人负责的作业区域。","answer":true},
+{"id":23,"text":"人机料法环验证不符合要求的，经班组长同意后可短暂开展作业。","answer":false},
+{"id":24,"text":"所有高风险作业必须明确作业监护人和包保领导。","answer":true},
+{"id":25,"text":"安全技术交底可直接照搬方案原文，无需细化适配作业岗位。","answer":false},
+{"id":26,"text":"未参加安全交底、代签漏签的作业人员，不得上岗作业。","answer":true},
+{"id":27,"text":"一般作业无需监督，仅危大工程、高风险作业需要现场监督。","answer":false},
+{"id":28,"text":"施工现场违章管理规定为：一次警示教育、二次黄牌警告、三次红牌清退。","answer":true},
+{"id":29,"text":"危大工程必须实施视频监控，留存关键过程影像资料。","answer":true},
+{"id":30,"text":"人员设备密集、交叉作业的工作面，必须强制安装固定视频监控设备。","answer":true}]}]};
+
+const LETTERS = ['A','B','C','D'];
+let flat = [], answers = {}, user = {}, startTime = 0, timerInt = null;
+const $ = id => document.getElementById(id);
+function toast(m){ const t=document.createElement('div'); t.className='toast'; t.textContent=m; document.body.appendChild(t); setTimeout(()=>t.remove(),2500); }
+function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+BANK.sections.forEach(s => s.questions.forEach(q => flat.push({ ...q, section:s })));
+const FULL = flat.reduce((a,q)=>a+q.section.scorePerQuestion,0);
+$('examMeta').textContent = `共 ${flat.length} 题 ｜ 满分 ${FULL} 分 ｜ 及格线 ${BANK.passScore} 分`;
+
+$('btnStart').onclick = () => {
+  const name = $('inName').value.trim(), empId = $('inEmp').value.trim(), dept = $('inDept').value.trim();
+  if(!name){ toast('请输入姓名'); $('inName').focus(); return; }
+  if(!empId){ toast('请输入工号'); $('inEmp').focus(); return; }
+  user = { name, empId, dept };
+  try{ localStorage.setItem('suez_static_user', JSON.stringify(user)); }catch(e){}
+  $('stepInfo').classList.add('hidden');
+  $('stepExam').classList.remove('hidden');
+  $('navbar').classList.remove('hidden');
+  renderExam();
+  startTime = Date.now();
+  timerInt = setInterval(()=>{
+    const s = Math.floor((Date.now()-startTime)/1000);
+    $('timer').textContent = String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  },1000);
+  window.scrollTo(0,0);
+};
+
+function renderExam(){
+  const box = $('sections'); box.innerHTML='';
+  flat.forEach((q,i)=>{
+    if(i===0 || flat[i-1].section!==q.section){
+      const h=document.createElement('div'); h.className='sec-title'; h.textContent=q.section.title; box.appendChild(h);
+    }
+    const d=document.createElement('div'); d.className='q'; d.id='q'+q.id;
+    let optsHtml='';
+    if(q.section.id==='judge'){
+      optsHtml = `<div class="opts">
+        <div class="opt ${answers[q.id]===true?'sel':''}" data-q="${q.id}" data-v="true"><span class="abc">√</span> 正确</div>
+        <div class="opt ${answers[q.id]===false?'sel':''}" data-q="${q.id}" data-v="false"><span class="abc">×</span> 错误</div>
+      </div>`;
+    }else{
+      optsHtml = `<div class="opts">` + q.options.map((o,j)=>
+        `<div class="opt ${answers[q.id]===j?'sel':''}" data-q="${q.id}" data-v="${j}"><span class="abc">${LETTERS[j]}</span><span>${esc(o)}</span></div>`
+      ).join('') + `</div>`;
+    }
+    d.innerHTML = `<div class="qt"><span class="num">${q.id}.</span>${esc(q.text)}</div>${optsHtml}`;
+    box.appendChild(d);
+  });
+  box.addEventListener('click', e=>{
+    const opt = e.target.closest('.opt'); if(!opt) return;
+    const qid = +opt.dataset.q;
+    const v = opt.dataset.v==='true'?true : opt.dataset.v==='false'?false : +opt.dataset.v;
+    answers[qid]=v;
+    opt.parentElement.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+    opt.classList.add('sel');
+    updateProgress();
+  });
+  updateProgress();
+}
+function updateProgress(){
+  const done = flat.filter(q=>answers[q.id]!==undefined).length;
+  $('progText').textContent = `已答 ${done} / ${flat.length}`;
+  $('pbarFill').style.width = (done/flat.length*100)+'%';
+}
+
+$('btnSubmit').onclick = () => {
+  const undone = flat.filter(q=>answers[q.id]===undefined);
+  if(undone.length){
+    $('dlgTitle').textContent = `还有 ${undone.length} 题未作答`;
+    $('dlgMsg').textContent = '未答题不得分，建议全部作答后再交卷。确定现在交卷吗？';
+  }else{
+    $('dlgTitle').textContent = '确认交卷？';
+    $('dlgMsg').textContent = `已全部作答（${flat.length}/${flat.length}），交卷后立即判分。`;
+  }
+  $('dlgMask').classList.remove('hidden');
+};
+$('dlgNo').onclick = () => $('dlgMask').classList.add('hidden');
+$('dlgYes').onclick = () => { $('dlgMask').classList.add('hidden'); showResult(); };
+
+// ================= 判分 + 生成成绩回执码 =================
+function checksum(str){ let h=0; for(let i=0;i<str.length;i++){ h=(h*31+str.charCodeAt(i))>>>0; } return h%9973; }
+function makeReceipt(payload){
+  const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  return 'SUEZ1.' + b64 + '.' + checksum(b64);
+}
+
+function showResult(){
+  clearInterval(timerInt);
+  $('navbar').classList.add('hidden');
+  $('stepExam').classList.add('hidden');
+  const el = $('stepResult'); el.classList.remove('hidden');
+  let total=0, single=0, judge=0; const wrongIds=[];
+  flat.forEach(q=>{
+    const given = answers[q.id];
+    const correct = given!==undefined && String(given)===String(q.answer);
+    if(correct){ total+=q.section.scorePerQuestion; q.section.id==='single'?single+=q.section.scorePerQuestion:judge+=q.section.scorePerQuestion; }
+    else wrongIds.push(q.id);
+  });
+  const dur = Math.floor((Date.now()-startTime)/1000);
+  const pass = total >= BANK.passScore;
+  // 答案串：单选0-3或X未答；判断T/F/X
+  const ansStr = flat.map(q=>{
+    const g = answers[q.id];
+    if(g===undefined) return 'X';
+    if(q.section.id==='judge') return g===true?'T':'F';
+    return String(g);
+  }).join('');
+  const receipt = makeReceipt({ n:user.name, e:user.empId, d:user.dept, s:total, a:ansStr, u:dur, t:Date.now() });
+  let extra = wrongIds.length
+    ? `<div class="wrong-box"><b>错题提醒</b>：第 ${wrongIds.join('、')} 题未答对，请对照“七个必有”制度原文复习。</div>`
+    : `<div class="ok-box">🎉 全部答对，满分通过！</div>`;
+  el.innerHTML = `
+    <div class="score-hero ${pass?'':'fail'}">
+      <div class="score-ring"><div class="s">${total}</div><div class="of">满分 ${FULL}</div></div>
+      <div class="verdict">${pass?'✓ 恭喜，考试及格':'✗ 未达及格线，请加强学习'}</div>
+      <div class="info-line">${esc(user.name)}（工号 ${esc(user.empId)}）${user.dept?' · '+esc(user.dept):''}</div>
+      <div class="info-line">用时 ${Math.floor(dur/60)} 分 ${dur%60} 秒 · 及格线 ${BANK.passScore} 分</div>
+      <div class="stat-row">
+        <div class="stat-box"><b>${single}<span style="font-size:12px;color:#8aa0b8"> /80</span></b><span>单选题</span></div>
+        <div class="stat-box"><b>${judge}<span style="font-size:12px;color:#8aa0b8"> /20</span></b><span>判断题</span></div>
+        <div class="stat-box"><b>${wrongIds.length}</b><span>错题数</span></div>
+      </div>
+      <div class="receipt">
+        <h4>📋 请复制下面的成绩回执码，发送到群里完成提交</h4>
+        <code id="receiptCode">${receipt}</code>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="copyReceipt()">一键复制回执码</button>
+      </div>
+      ${extra}
+      <div class="tips">回执码包含您的姓名、工号和答题记录，管理员凭它统计成绩。如需重考请刷新页面。</div>
+    </div>`;
+  window.scrollTo(0,0);
+}
+function copyReceipt(){
+  const code = $('receiptCode').textContent;
+  const done = () => toast('✓ 已复制，请粘贴到微信群里');
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(code).then(done).catch(()=>fallbackCopy(code,done)); }
+  else fallbackCopy(code,done);
+}
+function fallbackCopy(text,done){
+  const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); done(); }catch(e){ toast('复制失败，请长按回执码手动复制'); }
+  ta.remove();
+}
+try{ const u=JSON.parse(localStorage.getItem('suez_static_user')||'null'); if(u){ $('inName').value=u.name||''; $('inEmp').value=u.empId||''; $('inDept').value=u.dept||''; } }catch(e){}
+</script>
+</body>
+</html>
